@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../context/AuthContext";
@@ -31,46 +33,47 @@ const LoginScreen = ({ navigation }) => {
       await AsyncStorage.setItem("userId", user.id.toString());
       setUser(fullUser);
       Alert.alert("Thành công", "Đăng nhập thành công!");
-
     } else {
       Alert.alert("Thất bại", "Email hoặc mật khẩu không chính xác");
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Đăng nhập tài khoản</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Đăng nhập tài khoản</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Mật khẩu"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Mật khẩu"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Đăng nhập</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Đăng nhập</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Register")}
-        style={{ marginTop: 20 }}
-      >
-        <Text style={{ color: "#3b82f6", textAlign: "center" }}>
-          Chưa có tài khoản? Đăng ký
-        </Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Register")}
+          style={{ marginTop: 20 }}
+        >
+          <Text style={{ color: "#3b82f6", textAlign: "center" }}>
+            Chưa có tài khoản? Đăng ký
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
